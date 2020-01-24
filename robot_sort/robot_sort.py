@@ -102,10 +102,14 @@ class SortingRobot:
         # Tells robot to begin the task of sorting -- easy way to determine cards need to be sorted since returns True
             self.set_light_off()
             # Turn light off to save memory -- only needed to see when he's sorting the cards now
+            ## imagine array of [5, 15, 50, 40, 30]
             while self.can_move_right():
             # "Returns False if at end of the list," so the right side seemed like a logical place to start
                 self.swap_item()
                 # Pick up the nearest item so we can compare it to another one
+                ## Picks up 5. Smaller than 15, so skip to else
+                ### Now the robot is holding 50, so we go to the if statement logic
+                #### Now the robot is holding 40, which is bigger than 30. If statement logic repeats itself.
                 self.move_right()
                 # Move to next item (gotta go right because we started at left)
                 if self.compare_item() == 1:
@@ -114,8 +118,10 @@ class SortingRobot:
                     # Robot needs to see so he can start sorting the items, so set the light on
                     self.swap_item()
                     # Pick up the item and prepare to exchange it
+                    ### Robot picks up 40 and puts down 50
                     self.move_left()
                     # Move to the left and pick up smaller item
+                    ### Robot moves to the left and puts down 40
                     self.swap_item()
                     # Exchange its position with bigger item
                     self.move_right()
@@ -124,9 +130,11 @@ class SortingRobot:
                     # Thus, we need to move in the opposite direction (left)
                     self.move_left()
                     # Swap items so they are in the correct order
+                    ## 5 is smaller than 15, so it goes back where it was.
                     self.swap_item()
                     # Return to previous spot, confirm sorted
                     self.move_right()
+                    ## Robot moves to next item (15). It's also smaller than 50 so same steps repeat here.
             # Go back to the start of the list (left) and repeat sequence under other while loop until sorted
             while self.can_move_left(): 
             # Tested without this ^ and looks like it only sorts one item unless this logic exists? That confuses me as
