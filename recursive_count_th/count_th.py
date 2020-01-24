@@ -5,7 +5,7 @@ Your function must utilize recursion. It cannot contain any loops.
 '''
 def count_th(word):
     nope = 'f' not in word and 'h' not in word
-    # Base case  1
+    # Base case 1
     if nope:
         return 0
     # Base case 2

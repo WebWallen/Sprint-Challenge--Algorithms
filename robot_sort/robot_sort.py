@@ -96,8 +96,43 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        self.set_light_on()
+        # Turn light on to activate robot
+        while self.light_is_on():
+        # Tells robot to begin the task of sorting -- easy way to determine cards need to be sorted since returns True
+            self.set_light_off()
+            # Turn light off to save memory -- only needed to see when he's sorting the cards now
+            while self.can_move_right():
+            # "Returns False if at end of the list," so the right side seemed like a logical place to start
+                self.swap_item()
+                # Pick up the nearest item so we can compare it to another one
+                self.move_right()
+                # Move to next item (gotta go right because we started at left)
+                if self.compare_item() == 1:
+                    # What happens when items compared. 1 means the held item is bigger than the next one in list
+                    self.set_light_on()
+                    # Robot needs to see so he can start sorting the items, so set the light on
+                    self.swap_item()
+                    # Pick up the item and prepare to exchange it
+                    self.move_left()
+                    # Move to the left and pick up smaller item
+                    self.swap_item()
+                    # Exchange its position with bigger item
+                    self.move_right()
+                # Otherwise, the next item returned -1, which means it's smaller than current
+                else:
+                    # Thus, we need to move in the opposite direction (left)
+                    self.move_left()
+                    # Swap items so they are in the correct order
+                    self.swap_item()
+                    # Return to previous spot, confirm sorted
+                    self.move_right()
+            # Go back to the start of the list (left) and repeat sequence under other while loop until sorted
+            while self.can_move_left(): 
+            # Tested without this ^ and looks like it only sorts one item unless this logic exists? That confuses me as
+            # I figured it'd just keep moving to the left without need for another while loop... oh well!
+                self.move_left()
+        return self._list
 
 
 if __name__ == "__main__":
